@@ -82,7 +82,7 @@
 
         </div>
     </main>
-    <script src="js/helpers.js"></script>
+    <script src="projeto.js"></script>
 </body>
 
 </html>

@@ -4,9 +4,7 @@ document.addEventListener ("DOMContentLoaded",function (){
     listarProjetos();
 
     //Quando clicar em Salvar,executa salvarPrjeto()
-    document
-    .getElementById("formProjeto")
-    .addEventListener("submit", salvarProjeto)
+    document.getElementById("formProjeto").addEventListener("submit", salvarProjeto)
 });
 
 // LISTAR PROJETOS (READ)
@@ -33,4 +31,34 @@ async function listarProjetos(){
         `;
     });
     
+}
+
+//SALVAR PROJETO
+// CADASTRAR OU EDITAR CREATE/UPDATE
+async function salvarProjeto    (event){
+    // IMPEDE O RECARREGAMENTO DA PÁGINA
+    event.preventDefault();
+
+    //CAPTURA OS DADOS DO FORMULARIO
+    const formulario = document.getElementById("formProjeto");
+    const dados = new FormData(formulario);
+
+    // ENVIA OS DADOS PARA O CONTROLLER
+    const respostas = await fetch("ProjetoController.php?acao=cadastrar", {
+        method:"POST",
+        body:dados,
+    });
+
+    // Recebe a resposta do PHP
+    const resultado = await respostas.json();
+
+    //Exibe a mensagem
+    alert(resultado.mensagem);
+
+    // se salvou com sucesso...
+    if(resultado.sucesso == true){
+        alert("deu!!")
+        //ATUALIZA A TABELA
+        listarProjetos();
+    }
 }
